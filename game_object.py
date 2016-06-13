@@ -11,8 +11,8 @@ class GameObject(object):
 		width (int): The width of this game object.
 		height (int): The height of this game object.
 		image (object): An object with a blit(x,y,z) method,
-			            and optionally an update(dt) method
-						or an image property.
+			            an update(dt) method, and an image property
+						of the type :class:`pyglet.image.AbstractImage`.
 	"""
 
 	def __init__(self, image, x=0, y=0, z=0):
@@ -21,8 +21,8 @@ class GameObject(object):
 		
 		Arguments:
 			image (object): An object with a blit(x,y,z) method,
-			                and optionally an update(dt) method
-							or an image property.
+			                an update(dt) method, and an image property
+						    of the type :class:`pyglet.image.AbstractImage`.
 
 		Kawrgs:
 			x (int): The x coordinate. Default is 0.
@@ -50,9 +50,7 @@ class GameObject(object):
 			dt (float): The number of seconds that have passed
 			            since the last update.
 		"""
-		update_method = getattr(self._image, "update", None)
-		if callable(update_method):
-			self._image.update(dt)
+		self._image.update(dt)
 
 	@property
 	def x(self):
@@ -77,6 +75,4 @@ class GameObject(object):
 	@property
 	def image(self):
 		"""Get the image of the object."""
-		if getattr(self._image, "image", None):
-			return self._image.image
-		return self._image
+		return self._image.image
