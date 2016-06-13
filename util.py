@@ -21,3 +21,8 @@ def point_in_rectangle(rect, x, y):
 		y (int): The y coordinate of the point.
 	"""
 	return value_in_range(x, rect.x, rect.x + rect.width) and value_in_range(y, rect.y, rect.y + rect.height)
+
+ABS_TOLERANCE = 0.0000000001 # Amount of tolerable error
+def floats_equal(x, y):
+	"""Returns True if two floats are within ABS_TOLERANCE, false otherwise."""
+	return abs(x - y) <= ABS_TOLERANCE * max(1.0, abs(x), abs(y))
