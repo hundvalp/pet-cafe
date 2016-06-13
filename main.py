@@ -41,7 +41,7 @@ game_window.push_handlers(key_handler)
 
 # TODO Don't hardcode this
 button = GameButton(donut, hover=donut_hover)
-ani_button = GameButton(ani_donut, hover=ani_donut_hover)
+ani_button = GameButton(ani_donut, hover=ani_donut_hover, sync_hover_state=True)
 
 @game_window.event
 def on_draw():

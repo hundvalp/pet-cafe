@@ -7,16 +7,49 @@ class GameButton(object):
 	Representation of a game object which can be interacted with using the mouse.
 	"""
 
-	def __init__(self, inactive, hover=None):
-		"""Creates a new graphical game button object."""
+	def __init__(self, inactive, hover=None, sync_hover_state=False):
+		"""
+		Creates a new graphical game button object.
+		
+		Arguments:
+			inactive (:class:`GameObject`): The graphic to display while the button
+			                                is inactive.
+
+		Kwargs:
+			hover (:class:`GameObject`): The graphic to display while the button
+			                             is hovered over. If None, no special hover
+										 state will be used.
+			sync_hover_state (bool): True if the hover state should be updated
+			                         whenever the inactive state updates.
+								     This can keep animations in sync, for example.
+		"""
 		super(GameButton, self).__init__()
+		self._sync_hover_state = sync_hover_state
 		self.inactive = inactive
 		self.hover    = hover
 
 		self.current_state = self.inactive
+		self._state_label = 'inactive'
 
 	def update(self, dt):
+		"""
+		Updates the current game object.
+
+		If ``sync_hover_state`` is set, the hover state will be updated,
+		whenever the inactive state is, and vice versa. This will
+		keep animations in sync, for example.
+
+		Arguments:
+			dt (float): The number of seconds that have passed
+			            since the last update.
+		"""
 		self.current_state.update(dt)
+
+		if self._sync_hover_state:
+			if self._state_label == 'inactive':
+				self.hover.update(dt)
+			elif self._state_label == 'hover':
+				self.inactive.update(dt)
 
 	def handle_mouse_motion(self, x, y):
 		"""
@@ -38,9 +71,11 @@ class GameButton(object):
 			# Don't count the mouseover unless the image is visible under the mouse
 			if alpha != 0:
 				self.current_state = self.hover
+				self._state_label = 'hover'
 				return
 
 		self.current_state = self.inactive
+		self._state_label = 'inactive'
 		
 	def draw(self):
 		"""
