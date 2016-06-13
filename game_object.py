@@ -10,7 +10,9 @@ class GameObject(object):
 		z (int): The z coordinate of this game object.
 		width (int): The width of this game object.
 		height (int): The height of this game object.
-		image (int): The :class:`pyglet.image.AbstractImage` object for this game object.
+		image (object): An object with a blit(x,y,z) method,
+			            and optionally an update(dt) method
+						or an image property.
 	"""
 
 	def __init__(self, image, x=0, y=0, z=0):
@@ -19,7 +21,8 @@ class GameObject(object):
 		
 		Arguments:
 			image (object): An object with a blit(x,y,z) method,
-			                and optionally an update(dt) method.
+			                and optionally an update(dt) method
+							or an image property.
 
 		Kawrgs:
 			x (int): The x coordinate. Default is 0.
