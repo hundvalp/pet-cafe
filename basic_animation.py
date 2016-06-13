@@ -1,6 +1,7 @@
 from animation_frame import AnimationFrame
 from pyglet.event import EventDispatcher
 from pyglet.image import ImageGrid
+from pyglet import resource
 from util import floats_equal
 
 class BasicAnimation(EventDispatcher):
@@ -8,6 +9,8 @@ class BasicAnimation(EventDispatcher):
 	A basic animation.
 
 	Attributes:
+		image (:class:`pyglet.image.AbstractImage`): The image for the current animation frame.
+
 		frames (list of :class:`AnimationFrame`): The frames that make up the animation.
 		frame_count (int): The number of frames in the animation.
 
@@ -88,15 +91,15 @@ class BasicAnimation(EventDispatcher):
 
 				self._change_frame(next_frame_index)
 
-	def blit(self, x, y, z=0):
+	def blit(self, x=0, y=0, z=0):
 		"""
 		Draws the animation with its anchor point (usually the bottom left corner) at the given coordinates.
 
-		Arguments:
-			x (int): The x coordinate to draw the animation's anchor point at.
-			y (int): The y coordinate to draw the animation's anchor point at.
-
 		Kwargs:
+			x (int): The x coordinate to draw the animation's anchor point at.
+			         Defaults to 0.
+			y (int): The y coordinate to draw the animation's anchor point at.
+			         Defaults to 0.
 			z (int): The z coordinate to draw the animation's anchor point at.
 			         Defaults to 0.
 		"""
@@ -223,10 +226,26 @@ class BasicAnimation(EventDispatcher):
 		Returns:
 			A :class:`BasicAnimation` object.
 		"""
-		image_grid = ImageGrid(image, rows, cols)
+		image_grid = ImageGrid(resource.image(image), rows, cols)
 		sequence = map(cls._create_animation_frame_image, image_grid)
 
 		return cls.from_image_sequence(sequence, *args, **kwargs)
+
+	@classmethod
+	def from_images(cls, images, *args, **kwargs):
+		"""
+		Creates an animation from an image.
+
+		Arguments:
+			images (list of str): A list of filenames to load as frame images.
+			durations (list of floats): A list of the number of seconds to display each image.
+
+		Returns:
+			A :class:`BasicAnimation` object.
+		"""
+		image_files = [resource.image(image) for image in images]
+
+		return cls.from_image_sequence(image_files, *args, **kwargs)
 
 # Register animation events
 BasicAnimation.register_event_type('on_frame_change')
