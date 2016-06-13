@@ -15,7 +15,10 @@ class GameButton(object):
 
 		self.current_state = self.inactive
 
-	def update(self, x, y):
+	def update(self, dt):
+		self.current_state.update(dt)
+
+	def handle_mouse_motion(self, x, y):
 		"""
 		Updates the Game Button button according to where the mouse is.
 
