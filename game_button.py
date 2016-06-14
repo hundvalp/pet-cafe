@@ -66,7 +66,7 @@ class GameButton(object):
 		if not self.hover is None and point_in_rectangle(self.inactive, x, y):
 			pixel = self.current_state.image.get_region(x-self.current_state.x, y-self.current_state.y, 1, 1)
 			image_data = pixel.get_image_data().texture.get_image_data()
-			alpha = bytes(image_data.get_image_data().get_data("RGBA", 4))[3]
+			alpha = bytes(image_data.get_data("RGBA", 4))[3]
 
 			# Don't count the mouseover unless the image is visible under the mouse
 			if alpha != 0:
