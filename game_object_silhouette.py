@@ -49,7 +49,7 @@ class GameObjectSilhouette(GameObject):
 		# Insert the original alpha data into the new RGBA data as every 4th element
 		index = 3
 		for x in range(pixels):
-			new_data.insert(index, original_data[x])
+			new_data.insert(index, alpha_data[x])
 			index += 4
 
 		# Set the color of the new image
