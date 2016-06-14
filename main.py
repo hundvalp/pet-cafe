@@ -5,6 +5,7 @@ from pyglet import clock
 from pyglet import app
 from game_object import GameObject
 from game_button import GameButton
+from game_object_silhouette import GameObjectSilhouette
 from basic_graphic import BasicGraphic
 from basic_animation import BasicAnimation
 
@@ -15,6 +16,8 @@ resource.reindex()
 
 donut       = GameObject(BasicGraphic.from_image("donut.png"),       x=400, y=300)
 donut_hover = GameObject(BasicGraphic.from_image("donut-hover.png"), x=400, y=300)
+
+donut_silhouette = GameObjectSilhouette(donut, (255,255,150), x=500, y=100)
 
 ani_donut_frames = []
 ani_donut_durations = [1.0/24 for x in range(40)]
@@ -52,6 +55,7 @@ def on_draw():
 	# TODO Don't hardcode this
 	button.draw()
 	ani_button.draw()
+	donut_silhouette.draw()
 
 @game_window.event
 def on_mouse_motion(x, y, dx, dy):
