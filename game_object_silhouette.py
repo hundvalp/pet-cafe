@@ -1,4 +1,5 @@
 from game_object import GameObject
+from copy import copy
 
 class GameObjectSilhouette(GameObject):
 	"""
@@ -55,4 +56,5 @@ class GameObjectSilhouette(GameObject):
 		# Set the color of the new image
 		image_copy.set_data("RGBA", 4 * self.image.width, bytes(new_data))
 
-		self._image = image_copy
+		self._image = copy(self._image)
+		self._image.image = image_copy
