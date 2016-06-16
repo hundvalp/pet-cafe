@@ -13,6 +13,8 @@ resource.reindex()
 game_window = window.Window(800, 600, caption="Pet Cafe")
 #game_window.set_icon(pyglet.resource.image('icon.png')) # TODO Load an icon
 
+fps_display = clock.ClockDisplay()
+
 key_handler = window.key.KeyStateHandler()
 game_window.push_handlers(key_handler)
 
@@ -48,6 +50,7 @@ donut_silhouette = SpriteSilhouette(donut, (255,255,150), x=500, y=100)
 def on_draw():
 	# TODO It's possible that this could be removed if it's a significant performance bottleneck
 	game_window.clear()
+	fps_display.draw()
 
 	# TODO Don't hardcode this
 	button.draw()
