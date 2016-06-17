@@ -25,18 +25,20 @@ button = GameButton(donut, hover=donut_hover)
 
 # TODO Don't hardcode this
 ani_donut_frames = []
-for x in range(1, 40+1):
+for x in range(1, 20+1):
 	ani_donut_frames.append(resource.image('pink-trans-donut/trans-donut{0:04d}.png'.format(x)))
+ani_donut_frames.extend(ani_donut_frames[::-1][1:-1])
 
 ani_donut_animation = Animation.from_image_sequence(
-	ani_donut_frames, 1.0/24, loop=True)
+	ani_donut_frames, 1.0/48, loop=True)
 
 ani_donut_hover_frames = []
-for x in range(1, 40+1):
+for x in range(1, 20+1):
 	ani_donut_hover_frames.append(resource.image('blue-trans-donut/trans-donut{0:04d}.png'.format(x)))
+ani_donut_hover_frames.extend(ani_donut_hover_frames[::-1][1:-1])
 
 ani_donut_hover_animation = Animation.from_image_sequence(
-	ani_donut_hover_frames, 1.0/24, loop=True)
+	ani_donut_hover_frames, 1.0/48, loop=True)
 
 ani_donut       = Sprite(ani_donut_animation,       x=100, y=100)
 ani_donut_hover = Sprite(ani_donut_hover_animation, x=100, y=100)
