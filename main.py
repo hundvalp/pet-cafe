@@ -44,7 +44,8 @@ ani_donut_hover = Sprite(ani_donut_hover_animation, x=100, y=100)
 ani_button = GameButton(ani_donut, hover=ani_donut_hover, sync_hover_state=True)
 
 # TODO Don't hardcode this
-donut_silhouette = SpriteSilhouette(donut, (255,255,150), x=500, y=100)
+donut_silhouette     = SpriteSilhouette(donut,     (255,255,150), x=500, y=100)
+ani_donut_silhouette = SpriteSilhouette(ani_donut, (150,255,255), x=100, y=400)
 
 @game_window.event
 def on_draw():
@@ -56,6 +57,7 @@ def on_draw():
 	button.draw()
 	ani_button.draw()
 	donut_silhouette.draw()
+	ani_donut_silhouette.draw()
 
 @game_window.event
 def on_mouse_motion(x, y, dx, dy):
